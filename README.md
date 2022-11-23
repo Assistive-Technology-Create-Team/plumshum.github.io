@@ -1,13 +1,13 @@
 # Navigating this Repository
 This is where we organize the code for our project. This is a README file in the repository. It informs you what this repository is all out.
-Repositories track the code and its history. Code can be managed and changed in different versions. To nagivate changes and different versions, Github uses a system of *branches* and *pull and push requests*
+Repositories track the code and its history. Code can be managed and changed in different versions. To nagivate changes and different versions, Github uses a system of managing *branches* and utilizing *pulls and commits*
 
 
 
 # What is the MIT Create [Challenge](https://sites.google.com/view/beaver-works-assistive-tech/create-challenge/the-challenge)?
 
 # Our Project
-## Summmary
+## Summary
 Create an assistive piece of technology that can sense when a senior is in danger, and communicate the situation to emergency workers
 
 ## Major Components
@@ -29,3 +29,4 @@ Please look at these sample projects to understand what we are doing:
 
 **Sensor Data**
 - [Install Homebridge on Macs](https://github.com/homebridge/homebridge/wiki/Install-Homebridge-on-macOS)
+- [How the Accelerometer and Fall Detection System works] (https://iotdesignpro.com/projects/iot-based-fall-detection-system-using-nodemcu-esp8266-and-accelerometer-mpu6050)
