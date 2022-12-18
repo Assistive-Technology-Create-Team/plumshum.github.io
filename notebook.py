@@ -1,5 +1,5 @@
 #https://www.kaggle.com/harnoor343/fall-detection-accelerometer-data
-import numPy as np
+import numpy as np
 import pandas as pd 
 import glob
 import os 
@@ -25,6 +25,17 @@ columns = ['DeviceOrientation', 'AccelerationX', 'AccelerationY', 'AccelerationZ
 for c in ['AccelerationX', 'AccelerationY', 'AccelerationZ']:
     df[c + '_fft'] = np.fft.fft(df[c])
 
-# plot the first 100 column 'Acce
+# plot the first 100 columns of the fft of 'AccelerationX', AccelerationY', 'AccelerationZ'
+df[['AccelerationX_fft', 'AccelerationY_fft', 'AccelerationZ_fft']].iloc[:100].plot()
+df[['AccelerationX', 'AccelerationY', 'AccelerationZ']].iloc[:100].plot()
 
+# convert column 'DeviceOreignation' to one-hot encoding
+df = pd.get_dummies(df, columns=['DeviceOrientation'])
+x = np.array(df.drop(['Label'], axis=1))
+y = np.array(df['Label'])
 
+print(x)
+
+#normalize the data
+import sklearn.model_selection as model_selection
+x_train, x_test, y_train, y_test = model_selection.train_test_split(x, y, test_size=0.2, random_state=42)
