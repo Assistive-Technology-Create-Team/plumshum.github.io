@@ -1,4 +1,6 @@
 #https://www.kaggle.com/harnoor343/fall-detection-accelerometer-data
+#Link to chen hua min's code: https://www.kaggle.com/code/mmttdebbcc/notebook9689a93a64  
+
 import numpy as np
 import pandas as pd 
 import glob
@@ -39,3 +41,5 @@ print(x)
 #normalize the data
 import sklearn.model_selection as model_selection
 x_train, x_test, y_train, y_test = model_selection.train_test_split(x, y, test_size=0.2, random_state=42)
+
+
