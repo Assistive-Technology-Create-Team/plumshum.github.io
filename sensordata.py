@@ -5,6 +5,7 @@ sense = SenseHat()
 import time
 collecting = False
 pressed = False
+samples = 0
 while True:
     acceleration = sense.get_accelerometer_raw()
     pressed = False
@@ -22,6 +23,7 @@ while True:
     pressed = False
     if collecting == True:
         print("Collecting data")
+        samples +=1
         x = acceleration['x']
         y = acceleration['y']
         z = acceleration['z']
@@ -36,4 +38,8 @@ while True:
             f.write("{0},{1},{2}".format(x, y, z))
             # write a new line
             f.write("\n")
-        time.sleep(1)
+        if samples == 20:
+            quit()
+        time.sleep(0.1) #time interval 0.1 seconds 
+        
+        
