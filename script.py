@@ -2,8 +2,6 @@ from sense_hat import SenseHat
 from sklearn.metrics import accuracy_score
 import tensorflow as tf
 sense = SenseHat()
-# open csv files and read the data
-
 
 # load the model from saved_model
 model = tf.keras.models.load_model('saved_model/my_model')
@@ -18,8 +16,5 @@ print("Accuracy: ", accuracy_score(y_test, predictions))
 correct = 0
 for i in range(len(predictions)):
     print("Confidence level: ", predictions[i], "Label: ", y_test[i])
-    if predictions[i] > .75:
-        correct+=1
+    if predictions[i] > .75: correct+=1
 print("Confidence Level Accurate Percentage:", correct/len(predictions) * 100)
-# filter it based on confidence 
-
