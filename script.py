@@ -49,8 +49,6 @@ def data_categorical(df):
   df['DeviceOrientation'] = df['DeviceOrientation'].astype('category')
   df['DeviceOrientation'] = df['DeviceOrientation'].cat.codes
 
-  # TODO: change to y.categorical_data 
-
   return df
 
 def data_split(df):
