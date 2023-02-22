@@ -21,8 +21,7 @@ def data_collection():
       df['Label'] = label
       # save columns 'DeviceOrientation', 'AccelerationX', 'AccelerationY', 'AccelerationZ', 'Label' to a new csv file
       df[['DeviceOrientation', 'AccelerationX', 'AccelerationY', 'AccelerationZ', 'Label']].to_csv('./normalized_raspberrypi/' + label + '.csv', index=False)
-      
-      
+
   df = pd.concat([pd.read_csv(f) for f in glob.glob('./normalized_raspberrypi/*.csv')], ignore_index = True)
   return df 
 
