@@ -9,10 +9,10 @@ import pandas as pd
 def main():
   make_predictions()
 
-#TODO create a parameter for the humber of labels to include for the collection data function
-def data_collection():
+def data_collection(num = 1):
   os.makedirs('./normalized_raspberrypi', exist_ok=True)
-  labels = ['runfall', 'downSit', 'freeFall', 'runSit', 'walkFall', 'walkSit']
+  all_labels = {1:['runfall', 'downSit', 'freeFall', 'runSit', 'walkFall', 'walkSit'], 2: ['runfall', 'downSit', 'freeFall', 'runSit', 'walkFall', 'walkSit', 'walkStand', 'walkWalk'], 3: ['runfall', 'downSit', 'freeFall', 'runSit', 'walkFall', 'walkSit', 'walkStand', 'walkWalk', 'runRun', 'runStand', 'standStand', 'standWalk']}
+  labels = all_labels[num]
   for label in labels:
       #read all csv files in the directory "raspberry_pi_data' + label, delimit by ';'
       files = glob.glob('./raspberry_pi_data/' + label + '/*.csv')
@@ -25,7 +25,6 @@ def data_collection():
   df = pd.concat([pd.read_csv(f) for f in glob.glob('./normalized_raspberrypi/*.csv')], ignore_index = True)
   return df 
 
-#TODO create a function for normalizing data
 def data_normalize(df):
   for c in ['AccelerationX', 'AccelerationY', 'AccelerationZ']:
     df[c + '_fft'] = np.fft.fft(df[c])
@@ -35,7 +34,6 @@ def data_normalize(df):
     print(c)
   return df
 
-#TODO create a function for turning the data into categorical data
 def data_categorical(df):
   # convert categorical data to numerical data
   df['Label'] = df['Label'].astype('category')
@@ -84,7 +82,8 @@ def model_run(x_test, y_test):
   print("Confidence Level Accurate Percentage:", correct/len(predictions) * 100)
 
 def make_predictions():
-  df = data_collection()
+  num = int(input("Choose a number from 1-3 to run the model with the correspdonding labels: \n 1. runfall, downSit, freeFall, runSit, walkFall, walkSit \n 2. runfall, downSit, freeFall, runSit, walkFall, walkSit, walkStand, walkWalk \n 3. runfall, downSit, freeFall, runSit, walkFall, walkSit, walkStand, walkWalk, runRun, runStand, standStand, standWalk \n"))
+  df = data_collection(num)
   df = data_normalize(df)
   df = data_categorical(df)
   x_train, x_test, y_train, y_test = data_split(df)
