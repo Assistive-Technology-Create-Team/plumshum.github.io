@@ -96,22 +96,3 @@ def make_predictions():
 if __name__ == "__main__":
   print("this ran")
   main()
-  
-#TODO replace this in sensordataML.ipynb
-"""
-def create_model():
-  model = Sequential()
-  model.add(LSTM(128, input_shape=(x_train.shape[1], 1)))
-  model.add(Dropout(0.2))
-  model.add(Dense(6, activation='softmax'))
-  model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-  return model
-def train_model(model):
-  # train the model
-  model.fit(x_train, y_train, epochs=10, batch_size=32, validation_data=(x_test, y_test))
-  return model
-def save_model(model):
-  # save the model
-  model.save('saved_model/my_model')
-  return model
-"""
