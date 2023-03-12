@@ -1,0 +1,11 @@
+FallAllD_to_MATLAB_Structure.m
+Stores all FallAllD files (26420) in one MATLAB structure
+
+FallAllD_to_PYTHON_Structure.py
+Stores all FallAllD files (26420) in one Pandas dataframe
+
+Plot_FallAllD_Record.m
+Useful example to get familiar with this dataset
+
+ActivityID2Str.m
+Converts activity ID to a short text description (required by Plot_FallAllD_Record)
