@@ -12,7 +12,7 @@ pressed = False
 
 while True:
     acceleration = sense.get_accelerometer_raw()
-        pressure = sense.get_pressure()
+    pressure = sense.get_pressure()
     pressed = False
     for event in sense.stick.get_events():
         if event.action == "pressed":
