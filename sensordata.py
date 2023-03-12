@@ -12,6 +12,7 @@ pressed = False
 
 while True:
     acceleration = sense.get_accelerometer_raw()
+    pressure = sense.get_pressure()
     pressed = False
     for event in sense.stick.get_events():
         if event.action == "pressed":
@@ -32,16 +33,17 @@ while True:
         x = acceleration['x']
         y = acceleration['y']
         z = acceleration['z']
+        b = pressure
 
         x=round(x*1000, 0)
         y=round(y*1000, 0)
         z=round(z*1000, 0)
 
-        print("x={0}, y={1}, z={2}".format(x, y, z))
+        print("x={0}, y={1}, z={2}, b={3}".format(x, y, z, b))
         # write x, y, z to a file
         file_name = "{0}_{1}".format(label_name, file_counter)
         with open(file_name + ".txt", "a") as f:
-            f.write("{0},{1},{2}".format(x, y, z))
+            f.write("{0},{1},{2},{3}".format(x, y, z, b))
             # write a new line
             f.write("\n")
         if samples == 20:
