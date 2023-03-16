@@ -15,6 +15,8 @@ Repositories track the code and its history. Code can be managed and changed in 
   instructions for setting up raspberry pi on vscode
 ## machine learning.ipynb
   it's where the machine learning does it job duh
+## script.py
+  using the saved model, it tests the model with raspberry pi data collected 
 
 # What is the MIT Create [Challenge](https://sites.google.com/view/beaver-works-assistive-tech/create-challenge/the-challenge)?
 
