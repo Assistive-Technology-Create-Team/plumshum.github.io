@@ -1,6 +1,7 @@
 # FallAllD files to Python struct
-# By By Majd SALEH 08-April-2020.
-#need to install pytables
+
+# Hannah's Comment: takes data and turns in to panda dataframe, and it's saved in a pickle file.
+#The pickle file is called FallAllD.pkl
 import os
 from numpy import genfromtxt
 import numpy as np
@@ -61,16 +62,18 @@ for i in range(LL):
     print(f'File  {i+1}  out of {len(FileNames)}')
 os.chdir(oldDir)
 
-
+print(l_ActivityID)
 #This create the panda datafram
 FallAllD = pd.DataFrame(list(zip(l_SubjectID,l_Device,l_ActivityID,l_TrialNo,l_Acc,l_Gyr,l_Mag,l_Bar)), 
                columns =['SubjectID', 'Device','ActivityID','TrialNo','Acc','Gyr','Mag','Bar']) 
 
 #Pickle: Serializing and deserializing a Python object structure
+#Format: {SubjectID, ActivityID, TrialNo, Device, Acc, Gyr, Mag, Bar}
 FallAllD.to_pickle('FallAllD.pkl')
-#Write the contained data to an HDF5 file using HDFStore.
+
+#NOT USING. Write the contained data to an HDF5 file using HDFStore.
 #FallAllD.to_hdf('FallAllD.h5', key='df', mode='w')
 
 # to import data use:
-FallAllD = pd.read_pickle('FallAllD.pkl')
+#FallAllD = pd.read_pickle('FallAllD.pkl')
 #FallAllD = pd.read_hdf('FallAllD.h5', 'df')
