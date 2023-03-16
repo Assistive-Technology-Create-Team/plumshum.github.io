@@ -11,6 +11,10 @@ Repositories track the code and its history. Code can be managed and changed in 
   a folder that holdes the csv files that contain the normalized data from the kaggle data from folder archive: [DeviceOrientation, AccX_fft, AccY_fft, AccZ_ftt, Label]
 ## saved_model
   a folder that stores the most recent saved_model. each time a new model is saved, it gets overrided into the file lstm_model.h5
+## Instructions.md
+  instructions for setting up raspberry pi on vscode
+## machine learning.ipynb
+  it's where the machine learning does it job duh
 
 # What is the MIT Create [Challenge](https://sites.google.com/view/beaver-works-assistive-tech/create-challenge/the-challenge)?
 
