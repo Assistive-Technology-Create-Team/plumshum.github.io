@@ -38,9 +38,11 @@ for i in range(LL):
     l_TrialNo.append(np.uint8(TrialNo))
     Device=''
     if(int(f_name[5])==2): #Means they used 'wrist' device
+        print("Device is neck")
         Device='Neck'
         l_Device.append(Device)
     else: 
+        continue
         if (int(f_name[5])==1):
             Device='Neck' #Added Code
         else:
