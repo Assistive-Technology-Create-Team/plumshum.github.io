@@ -32,14 +32,14 @@ l_Gyr=[]
 for i in range(LL):
     f_name=FileNames[i]
     SubjectID=int(f_name[1:3])    
-    l_SubjectID.append(np.uint8(SubjectID))
+    l_SubjectID.append(np.float32(SubjectID))
     ActivityID=int(f_name[8:11])    
-    l_ActivityID.append(np.uint8(ActivityID))
+    l_ActivityID.append(np.float32(ActivityID))
     TrialNo=int(f_name[13:15])    
-    l_TrialNo.append(np.uint8(TrialNo))
+    l_TrialNo.append(np.float32(TrialNo))
     Device=''
     if(int(f_name[5])==2): #Means they used 'wrist' device
-        print("Device is neck")
+        #print("Device is neck")
         Device='Neck'
         l_Device.append(Device)
     else: 
@@ -49,11 +49,12 @@ for i in range(LL):
         else:
             Device='Waist'  
 
-    l_Acc.append(np.int16(genfromtxt(f_name, delimiter=',')))
+    l_Acc.append(np.float32(genfromtxt(f_name, delimiter=',')))
+
     chArr=list(f_name)
     chArr[16]='G'
     f_name="".join(chArr)    
-    l_Gyr.append(np.int16(genfromtxt(f_name, delimiter=',')))
+    l_Gyr.append(np.float32(genfromtxt(f_name, delimiter=',')))
     chArr=list(f_name)
 
     #Not used
@@ -68,12 +69,20 @@ for i in range(LL):
     print(f'File  {i+1}  out of {len(FileNames)}')
 os.chdir(oldDir)
 
-print(l_ActivityID)
+#Debugging go through all the list and check the data type of the elements
+print(type(l_SubjectID[0]))
+print(type(l_Device[0]))
+print(type(l_ActivityID[0]))
+print(type(l_TrialNo[0]))
+print(type(l_Acc[0]))
+print(type(l_Gyr[0]))
+#print(type(l_Mag[0]))
+#print(type(l_Bar[0]))
+
+
 #This create the panda dataframe
-#Removed Mag and Bar
-# Device that aren'ts used in wrist are not used. Wrist = 1
-
-
+FallAllD = pd.DataFrame(list(zip(l_SubjectID,l_Device,l_ActivityID,l_TrialNo,l_Acc,l_Gyr)), 
+               columns =['SubjectID', 'Device','ActivityID','TrialNo','Acc','Gyr']) 
 #  extract the data from the dataframe and use columns 'SubjectID', 'Device','ActivityID','TrialNo','Acc','Gyr'
 # subjectID = FallAllD['SubjectID']
 # device = FallAllD['Device']
@@ -81,8 +90,7 @@ print(l_ActivityID)
 # trialNo = FallAllD['TrialNo']
 # acc = FallAllD['Acc']
 # gyr = FallAllD['Gyr']
-FallAllD = pd.DataFrame(list(zip(l_SubjectID,l_Device,l_ActivityID,l_TrialNo,l_Acc,l_Gyr)), 
-               columns =['SubjectID', 'Device','ActivityID','TrialNo','Acc','Gyr']) 
+
 
 #Pickle: Serializing and deserializing a Python object structure
 #Format: {SubjectID, ActivityID, TrialNo, Device, Acc, Gyr, Mag, Bar}
