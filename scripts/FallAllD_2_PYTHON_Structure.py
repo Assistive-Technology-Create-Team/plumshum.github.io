@@ -28,7 +28,7 @@ l_Acc=[]
 l_Gyr=[]
 #l_Mag=[] not used
 #l_Bar=[] not used
-
+#blob
 for i in range(LL):
     f_name=FileNames[i]
     SubjectID=int(f_name[1:3])    
