@@ -30,17 +30,6 @@ l_Gyr=[]
 
 for i in range(LL):
     f_name=FileNames[i]
-    if(int(f_name[5])==2): #Means they used 'wrist' device
-        Device='1'
-    else:
-        continue
-    """
-        if (int(f_name[5])==1):
-            Device='Neck' #Added Code
-        else:
-            Device='Waist'  
-    """ 
-
     SubjectID=int(f_name[1:3])    
     l_SubjectID.append(np.uint8(SubjectID))
     ActivityID=int(f_name[8:11])    
@@ -48,9 +37,15 @@ for i in range(LL):
     TrialNo=int(f_name[13:15])    
     l_TrialNo.append(np.uint8(TrialNo))
     Device=''
-    
-    
-    
+    if(int(f_name[5])==2): #Means they used 'wrist' device
+        Device='Neck'
+        l_Device.append(Device)
+    else: 
+        if (int(f_name[5])==1):
+            Device='Neck' #Added Code
+        else:
+            Device='Waist'  
+
     l_Acc.append(np.int16(genfromtxt(f_name, delimiter=',')))
     chArr=list(f_name)
     chArr[16]='G'
