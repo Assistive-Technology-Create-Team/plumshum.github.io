@@ -9,7 +9,8 @@ import pandas as pd
 
 oldDir=os.getcwd()
 ParentDir=os.getcwd()
-FP=ParentDir+"\\FallAllD\\"
+# join ParentDir and FallAllD to FP
+FP = os.path.join(ParentDir, "FallAllD")
 os.chdir(FP)
 
 FileNamesAll=os.listdir(FP)
@@ -71,6 +72,15 @@ print(l_ActivityID)
 #This create the panda dataframe
 #Removed Mag and Bar
 # Device that aren'ts used in wrist are not used. Wrist = 1
+
+
+#  extract the data from the dataframe and use columns 'SubjectID', 'Device','ActivityID','TrialNo','Acc','Gyr'
+# subjectID = FallAllD['SubjectID']
+# device = FallAllD['Device']
+# activityID = FallAllD['ActivityID']
+# trialNo = FallAllD['TrialNo']
+# acc = FallAllD['Acc']
+# gyr = FallAllD['Gyr']
 FallAllD = pd.DataFrame(list(zip(l_SubjectID,l_Device,l_ActivityID,l_TrialNo,l_Acc,l_Gyr)), 
                columns =['SubjectID', 'Device','ActivityID','TrialNo','Acc','Gyr']) 
 
