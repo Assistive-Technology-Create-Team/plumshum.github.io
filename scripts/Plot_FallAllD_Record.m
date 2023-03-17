@@ -36,7 +36,10 @@ Acc=Acc*Acc_Sen;% convert to g units (m/s^2 units/9.81)
 Gyr=Gyr*Gyr_Sen;% convert to dps units
 Mag=Mag*Mag_Sen;% convert to gauss units
 
-t_Acc=(1:size(Acc,1))/Fs_Acc;
+% Time vecor
+% A time vector is created for each signal based on the number of samples and the corresponding sampling frequency. 
+% The time vectors can be used to plot the signals over time or to synchronize signals with each other
+t_Acc=(1:size(Acc,1))/Fs_Acc; 
 t_Gyr=(1:size(Gyr,1))/Fs_Gyr;
 t_Mag=(1:size(Mag,1))/Fs_Mag;
 t_Bar=(1:size(Bar,1))/Fs_Bar;

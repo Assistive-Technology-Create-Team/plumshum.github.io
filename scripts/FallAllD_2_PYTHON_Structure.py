@@ -25,11 +25,22 @@ l_ActivityID=[]
 l_TrialNo=[]
 l_Acc=[]
 l_Gyr=[]
-l_Mag=[]
-l_Bar=[]
+#l_Mag=[] not used
+#l_Bar=[] not used
 
 for i in range(LL):
     f_name=FileNames[i]
+    if(int(f_name[5])==2): #Means they used 'wrist' device
+        Device='1'
+    else:
+        continue
+    """
+        if (int(f_name[5])==1):
+            Device='Neck' #Added Code
+        else:
+            Device='Waist'  
+    """ 
+
     SubjectID=int(f_name[1:3])    
     l_SubjectID.append(np.uint8(SubjectID))
     ActivityID=int(f_name[8:11])    
@@ -37,14 +48,8 @@ for i in range(LL):
     TrialNo=int(f_name[13:15])    
     l_TrialNo.append(np.uint8(TrialNo))
     Device=''
-    if(int(f_name[5])==1):
-        Device='Neck'
-    else:
-        if (int(f_name[5])==2):
-            Device='Wrist'
-        else:
-            Device='Waist'    
-    l_Device.append(Device)
+    
+    
     
     l_Acc.append(np.int16(genfromtxt(f_name, delimiter=',')))
     chArr=list(f_name)
@@ -52,20 +57,25 @@ for i in range(LL):
     f_name="".join(chArr)    
     l_Gyr.append(np.int16(genfromtxt(f_name, delimiter=',')))
     chArr=list(f_name)
-    chArr[16]='M'
-    f_name="".join(chArr)    
-    l_Mag.append(np.int16(genfromtxt(f_name, delimiter=',')))
-    chArr=list(f_name)
-    chArr[16]='B'
-    f_name="".join(chArr)    
-    l_Bar.append(genfromtxt(f_name, delimiter=','))
+
+    #Not used
+    #chArr[16]='M'
+    #f_name="".join(chArr)    
+    #l_Mag.append(np.int16(genfromtxt(f_name, delimiter=',')))
+    #chArr=list(f_name)
+    #chArr[16]='B'
+    #f_name="".join(chArr)    
+    #l_Bar.append(genfromtxt(f_name, delimiter=','))
+
     print(f'File  {i+1}  out of {len(FileNames)}')
 os.chdir(oldDir)
 
 print(l_ActivityID)
-#This create the panda datafram
-FallAllD = pd.DataFrame(list(zip(l_SubjectID,l_Device,l_ActivityID,l_TrialNo,l_Acc,l_Gyr,l_Mag,l_Bar)), 
-               columns =['SubjectID', 'Device','ActivityID','TrialNo','Acc','Gyr','Mag','Bar']) 
+#This create the panda dataframe
+#Removed Mag and Bar
+# Device that aren'ts used in wrist are not used. Wrist = 1
+FallAllD = pd.DataFrame(list(zip(l_SubjectID,l_Device,l_ActivityID,l_TrialNo,l_Acc,l_Gyr)), 
+               columns =['SubjectID', 'Device','ActivityID','TrialNo','Acc','Gyr']) 
 
 #Pickle: Serializing and deserializing a Python object structure
 #Format: {SubjectID, ActivityID, TrialNo, Device, Acc, Gyr, Mag, Bar}
