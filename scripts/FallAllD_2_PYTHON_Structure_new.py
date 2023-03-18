@@ -7,6 +7,7 @@ from numpy import genfromtxt
 import numpy as np
 import pandas as pd 
 
+os.chdir('..')
 oldDir=os.getcwd()
 ParentDir=os.getcwd()
 # join ParentDir and FallAllD to FP
