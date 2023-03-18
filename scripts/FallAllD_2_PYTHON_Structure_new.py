@@ -1,4 +1,4 @@
-# FallAllD files to Python struct
+# NEW VERSION: FallAllD files to Python struct
 
 # Hannah's Comment: takes data and turns in to panda dataframe, and it's saved in a pickle file.
 #The pickle file is called FallAllD.pkl
@@ -45,21 +45,24 @@ for i in range(LL):
     else: 
         continue
         if (int(f_name[5])==1):
-            Device='Wrist' #Added Code
+            Device='Wrist' 
         else:
             Device='Waist'  
     
+    #Biggest change: Instead of storing accelerometer data as one unit, we split and store it as three separate columns
     df_acc = pd.read_csv(f_name, header=None, sep=',', names=['Acc_x','Acc_y', 'Acc_z'])
     chArr=list(f_name)
     chArr[16]='G'
     f_name="".join(chArr)    
     df_gyr = pd.read_csv(f_name, header=None, sep=',', names=['Gyr_x','Gyr_y', 'Gyr_z'])
     l_Gyr.append(np.int16(genfromtxt(f_name, delimiter=',')))
+
     df = pd.concat([df_acc, df_gyr], axis=1)
     df['SubjectID'] = SubjectID
     df['Device'] = Device
     df['ActivityID'] = ActivityID
     df['TrialNo'] = TrialNo
+
 
     #Not used
     #chArr[16]='M'
@@ -84,14 +87,11 @@ print(type(l_TrialNo[0]))
 
 #This create the panda dataframe
 FallAllD = df
-#  extract the data from the dataframe and use columns 'SubjectID', 'Device','ActivityID','TrialNo','Acc','Gyr'
-# subjectID = FallAllD['SubjectID']
-# device = FallAllD['Device']
-# activityID = FallAllD['ActivityID']
-# trialNo = FallAllD['TrialNo']
-# acc = FallAllD['Acc']
-# gyr = FallAllD['Gyr']
 
+#  extract the data from the dataframe and use columns 'SubjectID', 'Device','ActivityID','TrialNo','Acc'(3),'Gyr'(3)
+def extract_data(df, col_name):
+    print(df[col_name].values.tolist())
+    return df[col_name].values.tolist()
 
 #Pickle: Serializing and deserializing a Python object structure
 #Format: {SubjectID, ActivityID, TrialNo, Device, Acc, Gyr, Mag, Bar}
