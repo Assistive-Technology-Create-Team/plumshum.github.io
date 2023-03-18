@@ -5,7 +5,7 @@ samples = 0
 #each action will collect invidiaul data
 #press joystick to switch action
 
-sense = SenseHat()
+sense = SenseHat() 
 import time
 collecting = False
 pressed = False
@@ -15,36 +15,35 @@ while True:
     pressed = False
     for event in sense.stick.get_events():
         if event.action == "pressed":
-            pressed = True
+            pressed = True #joystick was pressed
             print("The joystick was pressed")
     
     if pressed == True:
-        if collecting == False:
+        if collecting == False: #start collecting data
             samples = 0
             collecting = True
-        else:
+        else: #stop collecting data
             collecting = False
             print("Not collecting data")
     pressed = False
     if collecting == True:
         print("Collecting data")
         samples +=1
-        x = acceleration['x']
+        x = acceleration['x'] #get x, y, z values from pi
         y = acceleration['y']
         z = acceleration['z']
 
-        x=round(x*1000, 0)
+        x=round(x*1000, 0) #cleaning up the data
         y=round(y*1000, 0)
         z=round(z*1000, 0)
 
-        print("x={0}, y={1}, z={2}".format(x, y, z))
-        # write x, y, z to a file
+        print("x={0}, y={1}, z={2}".format(x, y, z))  # write x, y, z to a console
         file_name = "{0}_{1}".format(label_name, file_counter)
-        with open(file_name + ".txt", "a") as f:
-            f.write("{0},{1},{2}".format(x, y, z))
+        with open(file_name + ".txt", "a") as f: #creates file with label name 
+            f.write("{0},{1},{2}".format(x, y, z)) # write x, y, z to a file
             # write a new line
             f.write("\n")
-        if samples == 20:
+        if samples == 20: #collect 20 samples per file
             file_counter +=1
             samples = 0
 
