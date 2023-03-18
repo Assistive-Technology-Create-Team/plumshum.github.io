@@ -6,7 +6,12 @@ import zipfile
 # Manually Upload to Google Drive and Open on Google Colab. 
 # There, run the machine learning script.
 zipf = zipfile.ZipFile('raspberry_pi_data.zip', 'w', zipfile.ZIP_DEFLATED)
-for root, dirs, files in os.walk('raspberry_pi_data'):
+
+print(os.getcwd())
+
+#go through file in this directory and add them to the zip file
+for root, dirs, files in os.walk('.'):
     for file in files:
+        print("new file: ", file)
         zipf.write(os.path.join(root, file))
 zipf.close()
