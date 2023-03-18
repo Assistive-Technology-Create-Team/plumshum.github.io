@@ -2,6 +2,16 @@
 This is where we organize the code for our project. This is a README file in the repository. It informs you what this repository is all out.
 Repositories track the code and its history. Code can be managed and changed in different versions. To nagivate changes and different versions, Github uses a system of managing *branches* and utilizing *pulls and commits*
 
+# Overall Process:
+*For running machine learning*
+1. Run zip_compressor.py to create a zip folder.
+2. Upload the zip folder to Google Drive.
+3. Extract Files, and open the folder on Google Colab
+4. Run FallAllD_2_PYTHON_Structure_new.py to get the dataframe
+5. Run machine learning new.ipynb to create the machine learning model
+6. Make sure you've collected data from the raspberry pi using sensordata.py
+7. Run script.py (not modified yet) to test the model with the raspberry pi data.
+
 # Files and Descriptions:
 ## FallAllD: 
   a folder that holds the raw data from FallAllD dataset. 

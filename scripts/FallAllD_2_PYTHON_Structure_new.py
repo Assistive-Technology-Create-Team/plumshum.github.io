@@ -63,7 +63,6 @@ for i in range(LL):
     df['ActivityID'] = ActivityID
     df['TrialNo'] = TrialNo
 
-
     #Not used
     #chArr[16]='M'
     #f_name="".join(chArr)    
@@ -76,25 +75,15 @@ for i in range(LL):
     print(f'File  {i+1}  out of {len(FileNames)}')
 os.chdir(oldDir)
 
-#Debugging go through all the list and check the data type of the elements
-print(type(l_SubjectID[0]))
-print(type(l_Device[0]))
-print(type(l_ActivityID[0]))
-print(type(l_TrialNo[0]))
-#print(type(l_Mag[0]))
-#print(type(l_Bar[0]))
-
-
 #This create the panda dataframe
 FallAllD = df
 
-#  extract the data from the dataframe and use columns 'SubjectID', 'Device','ActivityID','TrialNo','Acc'(3),'Gyr'(3)
+# Debuggin Tool: extract the data from the dataframe and use columns 'SubjectID', 'Device','ActivityID','TrialNo','Acc'(3),'Gyr'(3)
 def extract_data(df, col_name):
     print(df[col_name].values.tolist())
     return df[col_name].values.tolist()
 
 #Pickle: Serializing and deserializing a Python object structure
-#Format: {SubjectID, ActivityID, TrialNo, Device, Acc, Gyr, Mag, Bar}
 FallAllD.to_pickle('FallAllD.pkl')
 
 #NOT USING. Write the contained data to an HDF5 file using HDFStore.
