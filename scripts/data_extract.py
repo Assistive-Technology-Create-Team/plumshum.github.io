@@ -34,22 +34,9 @@ res = pd.DataFrame(columns=['SubjectID', 'Device','ActivityID','TrialNo','Acc_x'
 for i in range(LL):
     f_name=FileNames[i]
     SubjectID=int(f_name[1:3])    
-    l_SubjectID.append(np.float32(SubjectID))
     ActivityID=int(f_name[8:11])    
-    l_ActivityID.append(np.float32(ActivityID))
     TrialNo=int(f_name[13:15])    
-    l_TrialNo.append(np.float32(TrialNo))
-    Device=''
-    if(int(f_name[5])==2): #Means they used 'wrist' device
-        #print("Device is neck")
-        Device='Neck'
-        l_Device.append(Device)
-    else: 
-        continue
-        if (int(f_name[5])==1):
-            Device='Wrist' #Added Code
-        else:
-            Device='Waist'  
+    Device=int(f_name[5])
     
     df_acc = pd.read_csv(f_name, header=None, sep=',', names=['Acc_x','Acc_y', 'Acc_z'])
     chArr=list(f_name)
@@ -74,32 +61,14 @@ for i in range(LL):
     #l_Bar.append(genfromtxt(f_name, delimiter=','))
     res = res.append(df, ignore_index=True)
     print(f'File  {i+1}  out of {len(FileNames)} shape {res.shape}')
-
-os.chdir(oldDir)
-
-#Debugging go through all the list and check the data type of the elements
-#print(type(l_Mag[0]))
-#print(type(l_Bar[0]))
+    filename = 'FallAllD' +  '-' + str(SubjectID) +  '-' + str(Device) +  '-' + str (ActivityID) + '-' + str(TrialNo) + '.csv'
+    res.to_csv(filename)
+    res = pd.DataFrame(columns=['SubjectID', 'Device','ActivityID','TrialNo','Acc_x','Acc_y', 'Acc_z','Gyr_x','Gyr_y', 'Gyr_z'])
 
 
+# read all csv and combine them into one dataframe
+FallAllD = pd.concat([pd.read_csv(f) for f in os.listdir('.') if f.endswith('.csv')], ignore_index = True)
 #This create the panda dataframe
-FallAllD = res
-#  extract the data from the dataframe and use columns 'SubjectID', 'Device','ActivityID','TrialNo','Acc','Gyr'
-# subjectID = FallAllD['SubjectID']
-# device = FallAllD['Device']
-# activityID = FallAllD['ActivityID']
-# trialNo = FallAllD['TrialNo']
-# acc = FallAllD['Acc']
-# gyr = FallAllD['Gyr']
+os.chdir(oldDir)
+FallAllD.to_csv('FallAllD2.csv')
 
-
-#Pickle: Serializing and deserializing a Python object structure
-#Format: {SubjectID, ActivityID, TrialNo, Device, Acc, Gyr, Mag, Bar}
-FallAllD.to_pickle('FallAllD2.pkl')
-
-#NOT USING. Write the contained data to an HDF5 file using HDFStore.
-#FallAllD.to_hdf('FallAllD.h5', key='df', mode='w')
-
-# to import data use:
-#FallAllD = pd.read_pickle('FallAllD.pkl')
-#FallAllD = pd.read_hdf('FallAllD.h5', 'df')

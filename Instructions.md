@@ -1,14 +1,3 @@
-*For running machine learning*
-1. Run zip_compressor.py to create a zip folder.
-2. Upload the zip folder to Google Drive.
-  After review, this method is okay, but I think it's better to just go on explorer and manually zip.
-    If you want to use this function, then make sure you open this folder outside of the github desktop, or else it will also extract the previous used files aswell. 
-3. Extract Files, and open the folder on Google Colab
-4. Run FallAllD_2_PYTHON_Structure_new.py to get the dataframe
-5. Run machine learning new.ipynb to create the machine learning model
-6. Make sure you've collected data from the raspberry pi using sensordata.py
-7. Run script.py to test the model with the raspberry pi data.
-
 *For Connecting Raspberry Pi*
 
 link to instructions:
