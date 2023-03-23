@@ -29,7 +29,7 @@ l_Acc=[]
 l_Gyr=[]
 #l_Mag=[] not used
 #l_Bar=[] not used
-res = pd.DataFrame(columns=['SubjectID', 'Device','ActivityID','TrialNo','Acc_x','Acc_y', 'Acc_z','Gyr_x','Gyr_y', 'Gyr_z', 'Bar_x','Bar_y', 'Bar_z'])
+res = pd.DataFrame(columns=['SubjectID', 'Device','ActivityID','TrialNo','Acc_x','Acc_y', 'Acc_z','Gyr_x','Gyr_y', 'Gyr_z', 'Bar_x','Bar_y'])
 for i in range(LL):
     f_name=FileNames[i]
     SubjectID=int(f_name[1:3])    
@@ -47,7 +47,7 @@ for i in range(LL):
     chArr=list(f_name)
     chArr[16]='B'
     f_name="".join(chArr)  
-    df_bar = pd.read_csv(f_name, header=None, sep=',', names=['Bar_x','Bar_y', 'Bar_z'])
+    df_bar = pd.read_csv(f_name, header=None, sep=',', names=['Bar_x','Bar_y'])
 
     # create a new dataframe called df, df's columns are from the two dataframes df_acc and df_gyr
     df = pd.concat([df_acc, df_gyr, df_bar], axis=1) #added df_bar
@@ -69,7 +69,7 @@ for i in range(LL):
     print(f'File  {i+1}  out of {len(FileNames)} shape {res.shape}')
     filename = 'FallAllD' +  '-' + str(SubjectID) +  '-' + str(Device) +  '-' + str (ActivityID) + '-' + str(TrialNo) + '.csv'
     res.to_csv(filename)
-    res = pd.DataFrame(columns=['SubjectID', 'Device','ActivityID','TrialNo','Acc_x','Acc_y', 'Acc_z','Gyr_x','Gyr_y', 'Gyr_z', 'Bar_x','Bar_y', 'Bar_z'])
+    res = pd.DataFrame(columns=['SubjectID', 'Device','ActivityID','TrialNo','Acc_x','Acc_y', 'Acc_z','Gyr_x','Gyr_y', 'Gyr_z', 'Bar_x','Bar_y'])
 
 
 # read all csv and combine them into one dataframe
