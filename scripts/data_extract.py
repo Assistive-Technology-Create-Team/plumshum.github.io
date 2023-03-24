@@ -1,5 +1,3 @@
-# FallAllD files to Python struct
-
 # Hannah's Comment: takes data and turns in to panda dataframe
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -29,7 +27,10 @@ l_Acc=[]
 l_Gyr=[]
 #l_Mag=[] not used
 #l_Bar=[] not used
-res = pd.DataFrame(columns=['SubjectID', 'Device','ActivityID','TrialNo','Acc_x','Acc_y', 'Acc_z','Gyr_x','Gyr_y', 'Gyr_z', 'Bar_x','Bar_y'])
+res = pd.DataFrame(columns=['SubjectID', 'Device','ActivityID','TrialNo',
+                            'Acc_x','Acc_y', 'Acc_z',
+                            'Gyr_x','Gyr_y', 'Gyr_z', 
+                            'Bar_x','Bar_y'])
 for i in range(LL):
     f_name=FileNames[i]
     SubjectID=int(f_name[1:3])    
@@ -69,7 +70,10 @@ for i in range(LL):
     print(f'File  {i+1}  out of {len(FileNames)} shape {res.shape}')
     filename = 'FallAllD' +  '-' + str(SubjectID) +  '-' + str(Device) +  '-' + str (ActivityID) + '-' + str(TrialNo) + '.csv'
     res.to_csv(filename)
-    res = pd.DataFrame(columns=['SubjectID', 'Device','ActivityID','TrialNo','Acc_x','Acc_y', 'Acc_z','Gyr_x','Gyr_y', 'Gyr_z', 'Bar_x','Bar_y'])
+    res = pd.DataFrame(columns=['SubjectID', 'Device','ActivityID','TrialNo',
+                                'Acc_x','Acc_y', 'Acc_z',
+                                'Gyr_x','Gyr_y', 'Gyr_z', 
+                                'Bar_x','Bar_y'])
 
 
 # read all csv and combine them into one dataframe
