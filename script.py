@@ -80,6 +80,12 @@ def model_run(x_test, y_test):
       print("Confidence level: ", predictions[i], "Label: ", y_test[i])
       if predictions[i] > .75: correct+=1
   print("Confidence Level Accurate Percentage:", correct/len(predictions) * 100)
+  #create a confusion matrix
+  y_pred = model.predict(x_test)
+  y_pred = np.argmax(y_pred, axis=1)
+  y_test = np.argmax(y_test, axis=1)
+  cm = confusion_matrix(y_test, y_pred)
+  print(cm)
 
 def make_predictions():
   num = int(input("Choose a number from 1-3 to run the model with the correspdonding labels: \n 1. runfall, downSit, freeFall, runSit, walkFall, walkSit \n 2. runfall, downSit, freeFall, runSit, walkFall, walkSit, walkStand, walkWalk \n 3. runfall, downSit, freeFall, runSit, walkFall, walkSit, walkStand, walkWalk, runRun, runStand, standStand, standWalk \n"))

@@ -1,3 +1,5 @@
+*For Connecting Raspberry Pi*
+
 link to instructions:
 https://projects.raspberrypi.org/en/projects/getting-started-with-the-sense-hat/8
 
