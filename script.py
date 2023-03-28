@@ -1,30 +1,31 @@
-from sklearn.metrics import accuracy_score
-import sklearn.model_selection
-import tensorflow as tf
-import glob
-import os
 import numpy as np
 import pandas as pd
-
+import glob
+import os
+import matplotlib.pyplot as plt
+import seaborn as sns
+import sklearn 
+import tensorflow as tf
+from keras.models import Sequential
+from keras.layers import LSTM, Dense, Dropout, Flatten, Conv1D, MaxPooling1D
+from tensorflow.keras.losses import BinaryCrossentropy, KLDivergence
+import sklearn.model_selection
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import confusion_matrix
 def main():
   make_predictions()
 
-def data_collection(num = 1):
-  os.makedirs('./normalized_raspberrypi', exist_ok=True)
-  all_labels = {1:['runfall', 'downSit', 'freeFall', 'runSit', 'walkFall', 'walkSit'], 2: ['runfall', 'downSit', 'freeFall', 'runSit', 'walkFall', 'walkSit', 'walkStand', 'walkWalk'], 3: ['runfall', 'downSit', 'freeFall', 'runSit', 'walkFall', 'walkSit', 'walkStand', 'walkWalk', 'runRun', 'runStand', 'standStand', 'standWalk']}
-  labels = all_labels[num]
-  for label in labels:
-      #read all csv files in the directory "raspberry_pi_data' + label, delimit by ';'
-      files = glob.glob('./raspberry_pi_data/' + label + '/*.csv')
-      df = pd.concat([pd.read_csv(f, sep=';') for f in files], ignore_index=True)
-      # assign label to df column 'Label'
-      df['Label'] = label
-      # save columns 'DeviceOrientation', 'AccelerationX', 'AccelerationY', 'AccelerationZ', 'Label' to a new csv file
-      df[['DeviceOrientation', 'AccelerationX', 'AccelerationY', 'AccelerationZ', 'Label']].to_csv('./normalized_raspberrypi/' + label + '.csv', index=False)
-
-  df = pd.concat([pd.read_csv(f) for f in glob.glob('./normalized_raspberrypi/*.csv')], ignore_index = True)
+def data_collection():
+  # right now only using testing data
+    # get the data from the csv file in the data folder normalized_raspberrypi 
+    #df = pd.read_csv('/normalized_raspberrypi.csv')
+  df = pd.read_csv('FallAllD2.csv')
+  # convert all columns to float32
+  df = df.astype('float32')
+  print("finished collecting data")
   return df 
 
+#might use when we use actually raspberry pi data
 def data_normalize(df):
   for c in ['AccelerationX', 'AccelerationY', 'AccelerationZ']:
     df[c + '_fft'] = np.fft.fft(df[c])
@@ -34,6 +35,7 @@ def data_normalize(df):
     print(c)
   return df
 
+#might use when we use actually raspberry pi data
 def data_categorical(df):
   # convert categorical data to numerical data
   df['Label'] = df['Label'].astype('category')
@@ -48,32 +50,34 @@ def data_categorical(df):
 
   return df
 
-def data_split(df):
-  # can you drop accx, accy, and accz?
-  x = np.array(df.drop(['Label'], 1)) #drops row 'Label'
-  y = np.array(df["Label"])
+def data_label(df):
+    # add a new column called "IsFall" that is 1 if the ActivityID > 100, and 0 if it is not
+    df['IsFall'] = df['ActivityID'].apply(lambda x: 1 if x > 100 else 0)
+    return df
 
-  #TODO CONFIRM IF I CAN CHANGE X_TRAIN RESHAPED FOR EARLIER
-  #Spliting Data
-  x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x,y,test_size = 0.3)
+def data_split(df): # NOT SURE EXACTLY HOW YOU WANT TO SPLIT IT
+  # take a section of the df dataframe to test the model. not compatible with raspberry pi data
+  # x_test is df from 0 to 1000, excluding the column IsFall
+  x_test = df.iloc[0:1000, 0:10]
+  # y_test is df from 0 to 1000, only the column IsFall
+  y_test = df.iloc[0:1000, 10]
+  scaler = StandardScaler()
+  x = scaler.fit_transform(x)
+  x = x.reshape((x.shape[0], 1, x.shape[1]))
+  return x_test, y_test
 
-  # reshape training and testing data
-  y_train = np.array(y_train).reshape(-1,1) # (-1,1) because our data has a single feature, and a 'n' amount of rows
-  x_train = np.array(x_train).reshape(x_train.shape[0], x_train.shape[1], 1)
-  y_test = np.array(y_test).reshape(-1,1) # (-1,1) bec  ause our data has a single feature, and a 'n' amount of rows
-  x_test = np.array(x_test).reshape(x_test.shape[0], x_test.shape[1], 1)
-  
-  return x_train, x_test, y_train, y_test
-
-def model_run(x_test, y_test):
+def model_run(x_test, y_test, num):
   # load the model from saved_model
-  model = tf.keras.models.load_model('saved_model/my_model')
+  model_name = 'student_model' + str(num) + '.h5' #you can switch it to teacher model to test it out too
+  model = tf.keras.models.load_model('all models/' + model_name)
   # predict the outputs using the model
   predictions = model.predict(x_test)
-    # x_test : the data collected  from the accelerometer
+    # x_test : the data collected from the raspberry pi
     # predicted : the labels and the confidence level of the prediction
-  # print the accuracy
-  print("Accuracy: ", accuracy_score(y_test, predictions))
+  # print the accuracy of the predictions
+  accuracy = model.evaluate(x_test, y_test)
+  print("Accuracy:", accuracy)
+
   # print the confidence level and label of each prediction
   correct = 0
   for i in range(len(predictions)):
@@ -81,19 +85,24 @@ def model_run(x_test, y_test):
       if predictions[i] > .75: correct+=1
   print("Confidence Level Accurate Percentage:", correct/len(predictions) * 100)
   #create a confusion matrix
+  print("Confusion Matrix")
   y_pred = model.predict(x_test)
-  y_pred = np.argmax(y_pred, axis=1)
-  y_test = np.argmax(y_test, axis=1)
-  cm = confusion_matrix(y_test, y_pred)
-  print(cm)
+  y_pred = (y_pred > 0.5)
+  confusion_mtx = confusion_matrix(y_test, y_pred)
+  confusion_mtx_percent = confusion_mtx / confusion_mtx.sum(axis=1)[:, np.newaxis]
+  print(confusion_mtx_percent)
+
+  #save the accuracy in a csv file, with also the model_name as title of csv file
+  df = pd.DataFrame({'Accuracy': [accuracy]})
+  df.to_csv('all models/' + model_name + '.csv', index=False)
 
 def make_predictions():
-  num = int(input("Choose a number from 1-3 to run the model with the correspdonding labels: \n 1. runfall, downSit, freeFall, runSit, walkFall, walkSit \n 2. runfall, downSit, freeFall, runSit, walkFall, walkSit, walkStand, walkWalk \n 3. runfall, downSit, freeFall, runSit, walkFall, walkSit, walkStand, walkWalk, runRun, runStand, standStand, standWalk \n"))
-  df = data_collection(num)
-  df = data_normalize(df)
-  df = data_categorical(df)
-  x_train, x_test, y_train, y_test = data_split(df)
-  model_run(x_test, y_test)
+  df = data_collection()
+  #df = data_normalize(df) #might use when we use actually raspberry pi data
+  #df = data_categorical(df) #might use when we use actually raspberry pi data
+  df = data_label(df) #adds IsFall column
+  x_test, y_test = data_split(df)
+  model_run(x_test, y_test, 1) #change the number to the model you want to run
 
 if __name__ == "__main__":
   print("this ran")
