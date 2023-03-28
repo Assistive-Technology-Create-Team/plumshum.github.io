@@ -12,6 +12,7 @@ pressed = False
 
 while True:
     acceleration = sense.get_accelerometer_raw()
+    gyro = sense.get_gyroscope_raw()
     pressure = sense.get_pressure()
     pressed = False
     for event in sense.stick.get_events():
@@ -33,18 +34,26 @@ while True:
         x = acceleration['x']
         y = acceleration['y']
         z = acceleration['z']
-        b = pressure
+        b = pressure #can't use right now
+        g = gyro['x']
+        h = gyro['y']
+        i = gyro['z']
 
         x=round(x*1000, 0)
         y=round(y*1000, 0)
         z=round(z*1000, 0)
         b=round(b, 3)
+        g=round(g, 3)
+        h=round(h, 3)
+        i=round(i, 3)
 
-        print("x={0}, y={1}, z={2}, b={3}".format(x, y, z, b))
+        print("x={0}, y={1}, z={2}, b={3}, g={4}, h={5}, i={6}".format(x, y, z, b, g, h, i))
+        
         # write x, y, z to a file
         file_name = "{0}_{1}".format(label_name, file_counter)
         with open(file_name + ".txt", "a") as f:
-            f.write("{0},{1},{2},{3}".format(x, y, z,b))
+            # write x, y, z, g, h, i to the file. cant add barometer data right now
+            f.write("{0},{1},{2},{3},{4},{5},{6}".format(x, y, z, b, g, h, i))
             # write a new line
             f.write("\n")
         if samples == 20:
