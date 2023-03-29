@@ -7,7 +7,7 @@ Repositories track the code and its history. Code can be managed and changed in 
 1. Upload FallAllD2.csv and machine learning.ipynb to Google Colab
 2. Run machine learning.ipynb to create the machine learning model. Right now models are already created so you don't need to do this step. 
 4. Make sure you've collected data from the raspberry pi using sensordata.py
-5. Run script.py (not modified yet) to test the model (models are in the folder all_models with the raspberry pi data.
+5. Run newscript.py to test the model (models are in the folder all_models with the raspberry pi data.)
 
 # Files and Descriptions:
 ## FallAllD: 
