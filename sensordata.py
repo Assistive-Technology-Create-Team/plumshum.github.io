@@ -64,13 +64,13 @@ while True:
     # A time vector is created for each signal based on the number of samples and the corresponding sampling frequency. 
     # The time vectors can be used to plot the signals over time or to synchronize signals with each other
 
-        print("x={0}, y={1}, z={2}, b={3}, g={4}, h={5}, i={6}".format(Acc_x, Acc_y, Acc_z, Gyr_x, Gyr_y, Gyr_z))
+        print("x={0}, y={1}, z={2}, g={3}, h={4}, i={5}".format(Acc_x, Acc_y, Acc_z, Gyr_x, Gyr_y, Gyr_z))
         
         # write x, y, z, b, g, h to a file
         file_name = "{0}_{1}".format(label_name, file_counter)
         with open(file_name + ".txt", "a") as f:
             # write x, y, z, g, h, i to the file. cant add barometer data right now
-            f.write("{0},{1},{2},{3},{4},{5},{6}".format(x, y, z, b, g, h))
+            f.write("{0},{1},{2},{3},{4},{5}".format(Acc_x, Acc_y, Acc_z, Gyr_x, Gyr_y, Gyr_z))
             # write a new line
             f.write("\n")
         if samples == 20:
