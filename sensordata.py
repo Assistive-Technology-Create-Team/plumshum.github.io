@@ -41,40 +41,30 @@ while True:
     if collecting == True:
         print("Collecting data")
         samples +=1
-        Acc = acceleration
+        #split acleration into x, y, z
+        Acc_x = acceleration['x']
+        Acc_y = acceleration['y']
+        Acc_z = acceleration['z']
         b = pressure #can't use right now
-        Gyr = gyro
+        Gyr_x = gyro['x']
+        Gyr_y = gyro['y']
+        Gyr_z = gyro['z']
+        
 
-        Acc = Acc * Acc_Sen  # convert to g units (m/s^2 units/9.81)
-        Gyr = Gyr * Gyr_Sen  # convert to dps units
+        Acc_x = Acc_x * Acc_Sen  # convert to g units (m/s^2 units/9.81)
+        Acc_y = Acc_y * Acc_Sen  # convert to g units (m/s^2 units/9.81)
+        Acc_z = Acc_z * Acc_Sen  # convert to g units (m/s^2 units/9.81)
+        Gyr_x = Gyr_x * Gyr_Sen  # convert to dps units
+        Gyr_y = Gyr_y * Gyr_Sen  # convert to dps units
+        Gyr_z = Gyr_z * Gyr_Sen  # convert to dps units
+
+
 
             # Time vector
     # A time vector is created for each signal based on the number of samples and the corresponding sampling frequency. 
     # The time vectors can be used to plot the signals over time or to synchronize signals with each other
-        t_Acc = (range(Acc.shape[0]) / Fs_Acc)
-        t_Gyr = (range(Gyr.shape[0]) / Fs_Gyr)
-        print("Shape", t_Acc, t_Gyr)
 
-        #spllit t_Acc into x, y, z 
-        x = Acc[:,0]
-        y = Acc[:,1]
-        z = Acc[:,2]
-
-        #split t_Gyr into b, g, h
-        b = Gyr[:,0]
-        g = Gyr[:,1]
-        h = Gyr[:,2]
-
-        #These conversions not needed
-        #x=round(x*1000, 0)
-        #y=round(y*1000, 0)
-        #z=round(z*1000, 0)
-        #b=round(b, 3)
-        #g=round(g, 3)
-        #h=round(h, 3)
-        #i=round(i, 3)
-
-        print("x={0}, y={1}, z={2}, b={3}, g={4}, h={5}, i={6}".format(x, y, z, b, g, h))
+        print("x={0}, y={1}, z={2}, b={3}, g={4}, h={5}, i={6}".format(Acc_x, Acc_y, Acc_z, Gyr_x, Gyr_y, Gyr_z))
         
         # write x, y, z, b, g, h to a file
         file_name = "{0}_{1}".format(label_name, file_counter)
