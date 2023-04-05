@@ -51,12 +51,12 @@ while True:
         Gyr_z = gyro['z']
         
 
-        Acc_x = Acc_x * Acc_Sen  # convert to g units (m/s^2 units/9.81)
-        Acc_y = Acc_y * Acc_Sen  # convert to g units (m/s^2 units/9.81)
-        Acc_z = Acc_z * Acc_Sen  # convert to g units (m/s^2 units/9.81)
-        Gyr_x = Gyr_x * Gyr_Sen  # convert to dps units
-        Gyr_y = Gyr_y * Gyr_Sen  # convert to dps units
-        Gyr_z = Gyr_z * Gyr_Sen  # convert to dps units
+        Acc_x = Acc_x / Acc_Sen  # convert to g units (m/s^2 units/9.81)
+        Acc_y = Acc_y / Acc_Sen  # convert to g units (m/s^2 units/9.81)
+        Acc_z = Acc_z / Acc_Sen  # convert to g units (m/s^2 units/9.81)
+        Gyr_x = Gyr_x / Gyr_Sen  # convert to dps units
+        Gyr_y = Gyr_y / Gyr_Sen  # convert to dps units
+        Gyr_z = Gyr_z / Gyr_Sen  # convert to dps units
 
 
 
@@ -67,8 +67,8 @@ while True:
         print("x={0}, y={1}, z={2}, g={3}, h={4}, i={5}".format(Acc_x, Acc_y, Acc_z, Gyr_x, Gyr_y, Gyr_z))
         
         # write x, y, z, b, g, h to a file
-        file_name = "{0}_{1}".format(label_name, file_counter)
-        with open(file_name + ".txt", "a") as f:
+        file_name = "fall"
+        with open(file_name + ".csv") as f:
             # write x, y, z, g, h, i to the file. cant add barometer data right now
             f.write("{0},{1},{2},{3},{4},{5}".format(Acc_x, Acc_y, Acc_z, Gyr_x, Gyr_y, Gyr_z))
             # write a new line
