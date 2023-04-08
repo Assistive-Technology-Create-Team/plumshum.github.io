@@ -68,7 +68,7 @@ while True:
         
         # write x, y, z, b, g, h to a file
         file_name = "fall"
-        with open(file_name + ".csv") as f:
+        with open(file_name + ".csv", "a") as f:
             # write x, y, z, g, h, i to the file. cant add barometer data right now
             f.write("{0},{1},{2},{3},{4},{5}".format(Acc_x, Acc_y, Acc_z, Gyr_x, Gyr_y, Gyr_z))
             # write a new line

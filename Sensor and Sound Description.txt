@@ -1,0 +1,21 @@
+
+Malfunctioning sensors:
+    Red solid light, text, and sound
+
+Low Battery:
+    Red Flashing light, text, and sound
+
+Not enough data:
+    Text 
+
+When wifi disconnects or out of wifi range:
+    Yellow solid light to show that the emergency contacts cannot be called, however the device still can detect falls and will have the alarm sound 
+
+False alarm: 
+    the device thinks the person fell but the person did not
+    Off button for the alarm + 15 sec buffer time before contacting emergency contacts
+If the sound is not loud enough:
+We can test the sounds from the alarm to make sure that it is loud enough to hear from other rooms in the house
+
+Getting the device wet:
+A future feature to the device could be a sealed case in order to prevent issues with splashing water 
