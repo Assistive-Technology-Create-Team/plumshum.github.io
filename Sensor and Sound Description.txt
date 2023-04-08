@@ -1,9 +1,19 @@
+To-do Saturday:
+  Set-Up raspberry pi with portable battery 
+  Connect to VSCode (sensordata.py, script.py, and the model )
+  Collect Data 
+  Test out different Cases:
+    Time each action (START to FINISH)
 
+Fall Detect:
+   RED Flashing Light, speaker go off
+   15 second buffer time
+   Home Assistance Contact
 Malfunctioning sensors:
-    Red solid light, text, and sound
+    Yellow solid light, text, and sound
 
 Low Battery:
-    Red Flashing light, text, and sound
+    Yellow Flashing light, text, and sound
 
 Not enough data:
     Text 
@@ -18,4 +28,4 @@ If the sound is not loud enough:
 We can test the sounds from the alarm to make sure that it is loud enough to hear from other rooms in the house
 
 Getting the device wet:
-A future feature to the device could be a sealed case in order to prevent issues with splashing water 
+     A future feature to the device could be a sealed case in order to prevent issues with splashing water 
