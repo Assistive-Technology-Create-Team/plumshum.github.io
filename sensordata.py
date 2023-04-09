@@ -1,4 +1,8 @@
 from sense_hat import SenseHat
+import time
+import pandas as pd
+import numpy as np  
+import tensorflow as tf
 label_name = input ("Enter an action label: ")
 file_counter = 0
 samples = 0
@@ -6,7 +10,10 @@ samples = 0
 #press joystick to switch action
 
 sense = SenseHat()
-import time
+sense.clear()
+red = (255,0,0)
+green = (0,255,0)
+
 collecting = False
 pressed = False
 
@@ -19,7 +26,12 @@ Acc_Sen = 0.000244  # Accelerometer sensitivity 0.244 mg/LSB
 Gyr_Sen = 0.07      # Angular rate sensitivity 70 mdps/LSB
 Mag_Sen = 0.00014   # Magnetic sensitivity 0.14 mgauss/LSB
 
+model = tf.keras.models.load_model('student_model4_device2_aggregate_coach.h5')
 
+#create a pand dataframe and defin the columns
+fall = pd.DataFrame(columns=['Device',
+                            'Acc_x','Acc_y', 'Acc_z' 
+                            ])
 while True:
     acceleration = sense.get_accelerometer_raw()
     gyro = sense.get_gyroscope_raw()
@@ -66,8 +78,38 @@ while True:
 
         print("x={0}, y={1}, z={2}, g={3}, h={4}, i={5}".format(Acc_x, Acc_y, Acc_z, Gyr_x, Gyr_y, Gyr_z))
         
+        #create a dataframe with the data and index it
+        
+        
+        fall.append({'Device': [2], 'Acc_x': [Acc_x], 'Acc_y': [Acc_y], 'Acc_z': [Acc_z]}, ignore_index=True)
+        
+        if samples >= 100:
+            fall = fall.values.reshape((fall.shape[0], 1, fall.shape[1]))
+            # split fall into chuncks, each chuck has 20 rows and predict and loop on all the chuncks
+            #print size of dataframe
+            print(fall.shape)
+            #fall = np.array_split(fall, fall.shape[0] / 2)
+            sense.clear(green)
+            #input("Press Enter to start predicting...")
+
+            # for each chunk, predict fall and if 50% of the predictions are 1, then the fall is
+            for i in range(len(fall)):
+                pred = model.predict(fall[i])
+                # if 50% of the predictions are 1, then the fall is predicted
+                if np.sum(pred) >= 0.5 * pred.shape[0]:
+                    sense.clear(red)
+                else:
+                    sense.clear(green)
+            time.sleep(0.5)
+            sense.clear()
+            samples = 0
+            fall = pd.DataFrame(columns=['Device', 'Acc_x','Acc_y', 'Acc_z'])
+            
+            
+            
         # write x, y, z, b, g, h to a file
-        file_name = "fall"
+        """
+        file_name ="fall"
         with open(file_name + ".csv", "a") as f:
             # write x, y, z, g, h, i to the file. cant add barometer data right now
             f.write("{0},{1},{2},{3},{4},{5}".format(Acc_x, Acc_y, Acc_z, Gyr_x, Gyr_y, Gyr_z))
@@ -78,5 +120,6 @@ while True:
             samples = 0
 
         time.sleep(0.1) #time interval 0.1 seconds 
+        """
         
         
