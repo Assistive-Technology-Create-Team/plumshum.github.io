@@ -83,7 +83,7 @@ while True:
         
         fall.append({'Device': [2], 'Acc_x': [Acc_x], 'Acc_y': [Acc_y], 'Acc_z': [Acc_z]}, ignore_index=True)
         
-        if samples >= 100:
+        if samples >= 100: #change to 512 and test it later 
             fall = fall.values.reshape((fall.shape[0], 1, fall.shape[1]))
             # split fall into chuncks, each chuck has 20 rows and predict and loop on all the chuncks
             #print size of dataframe
@@ -96,10 +96,12 @@ while True:
             for i in range(len(fall)):
                 pred = model.predict(fall[i])
                 # if 50% of the predictions are 1, then the fall is predicted
-                if np.sum(pred) >= 0.5 * pred.shape[0]:
+                pred_value = np.sum(pred) >= 0.5 * pred.shape[0]
+                if pred_value:
                     sense.clear(red)
                 else:
                     sense.clear(green)
+            print("predict value", pred_value)
             time.sleep(0.5)
             sense.clear()
             samples = 0
