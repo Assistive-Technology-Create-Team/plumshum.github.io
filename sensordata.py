@@ -99,6 +99,9 @@ while True:
                 pred_value = np.sum(pred) >= 0.5 * pred.shape[0]
                 if pred_value:
                     sense.clear(red)
+                    print("Fall detected") 
+                    #display on text
+                    sense.show_message("Fall detected", text_colour=red)
                 else:
                     sense.clear(green)
             print("predict value", pred_value)
