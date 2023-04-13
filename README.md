@@ -9,11 +9,13 @@ Most updated branch is the **main** branch
 2. Run machine learning.ipynb to create the machine learning model. Right now models are already created so you don't need to do this step. 
 *For running prediction script*
 4. run sensordata.py to run the prediction script. it will automaticaly collect data from the raspberry pi's sensehat
-*For Connecting Raspberry Pi*
-link to [instructions] https://projects.raspberrypi.org/en/projects/getting-started-with-the-sense-hat/8
+
+*For Connecting Raspberry Pi* 
+
+link to [instructions](https://projects.raspberrypi.org/en/projects/getting-started-with-the-sense-hat/8)
 1. ctrl p (microsoft)
 2. command shift p (linux)
-3. >remote ssh either connect or add new host
+3. remote ssh either connect or add new host
   - username@ip address
 4. input password 
 5. connect to linux
@@ -27,7 +29,7 @@ link to [instructions] https://projects.raspberrypi.org/en/projects/getting-star
 - open terminal
 type:
    -  python3 name of file
-to stop file:
+- to stop file:
    -  ctrl c 
 
 # Files and Descriptions:
@@ -86,7 +88,10 @@ testing python file to debug our student model
 
 # Our Project
 ## Summary
-Create an assistive piece of technology that can sense when a senior is in danger, and communicate the situation to emergency workers
+Create an assistive piece of technology that can sense when a senior is in danger, and contacts for help
+
+The base product works without wifi connection
+The entire product works will work with wifi connection
 
 ## Major Components
 There are three major components
@@ -99,16 +104,12 @@ There are three major components
 ## Sample Projects
 Please look at these sample projects to understand what we are doing:
 
-**Our current ideas and block diagrams [slideshow](https://docs.google.com/presentation/d/1aa9CrvCU01R1dKsot-3q9yuEzjVwWQEgsKHpUEQwsT0/edit?usp=sharing)**
-
+**Our recent [slideshow](https://docs.google.com/presentation/d/1UKiu0qB-KCjSiXp1Kg6J7CR_UiFspL7GR_qOvW0-YNU/edit#slide=id.g1d6b888cecd_3_1340)**
 **Understanding Rasberry Pi**
 - [Intro Project  w/ Raspberry Pi](https://projects.raspberrypi.org/en/projects/getting-started-with-the-sense-hat/8)
 - [Raspberry Pi Documentation](https://www.raspberrypi.com/documentation/accessories/sense-hat.html)
 - [Raspberry Pi Official Website](https://www.raspberrypi.com/)
 
-**Sensor Data**
-- [Install Homebridge on Macs](https://github.com/homebridge/homebridge/wiki/Install-Homebridge-on-macOS)
-- [How the Accelerometer and Fall Detection System works](https://iotdesignpro.com/projects/iot-based-fall-detection-system-using-nodemcu-esp8266-and-accelerometer-mpu6050)
 
 ## Citations
 M. Saleh, M. Abbas and R. L. B. Jeannès, "FallAllD: An Open Dataset of Human Falls and Activities of Daily Living for Classical and Deep Learning Applications," in IEEE Sensors Journal, doi: 10.1109/JSEN.2020.3018335.
