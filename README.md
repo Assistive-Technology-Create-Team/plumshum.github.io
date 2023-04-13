@@ -36,7 +36,7 @@ type:
 ## all models
   folder that holds all the models 
   - teacher models 
-     1. `teacher_model0_device2_acc_aggregate` is the current teacher model AND model being tested on `sensordata.py`
+     1. `teacher_model4_device2_aggregate` is the current teacher model AND model being tested on `sensordata.py`
      2. `teacher_model0_device2_aggregate` is the teacher model with all three sensors 
   - student models
     they all hold aggregate data from device 2 (wrist data) 
