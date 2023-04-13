@@ -7,13 +7,13 @@ To-do Saturday:
 
 Fall Detect:
    RED Flashing Light, speaker go off
-   15 second buffer time
+   15 second buffer time (longer)
    Home Assistance Contact
 Malfunctioning sensors:
-    Yellow solid light, text, and sound
+    Yellow  light, text, and sound
 
 Low Battery:
-    Yellow Flashing light, text, and sound
+    Yellow  light, text, and sound
 
 Not enough data:
     Text 
@@ -23,7 +23,7 @@ When wifi disconnects or out of wifi range:
 
 False alarm: 
     the device thinks the person fell but the person did not
-    Off button for the alarm + 15 sec buffer time before contacting emergency contacts
+    Off button for the alarm + 15 sec buffer (longer) time before contacting emergency contacts
 If the sound is not loud enough:
 We can test the sounds from the alarm to make sure that it is loud enough to hear from other rooms in the house
 

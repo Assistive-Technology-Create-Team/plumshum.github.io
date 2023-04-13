@@ -25,6 +25,8 @@ for i in range(len(fall)):
     # if 50% of the predictions are 1, then the fall is predicted
     if np.sum(pred) >= 0.5 * pred.shape[0]:
         sense.clear(red)
+        #speaker makes sound
+        
     else:
         sense.clear(green)
 sense.clear()

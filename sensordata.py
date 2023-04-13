@@ -26,7 +26,7 @@ Acc_Sen = 0.000244  # Accelerometer sensitivity 0.244 mg/LSB
 Gyr_Sen = 0.07      # Angular rate sensitivity 70 mdps/LSB
 Mag_Sen = 0.00014   # Magnetic sensitivity 0.14 mgauss/LSB
 
-model = tf.keras.models.load_model('student_model4_device2_aggregate_coach.h5')
+model = tf.keras.models.load_model('teacher_model0_device2_acc_aggregate.h5')
 
 #create a pand dataframe and defin the columns
 fall = pd.DataFrame(columns=['Device',
@@ -83,12 +83,12 @@ while True:
         
         fall.append({'Device': [2], 'Acc_x': [Acc_x], 'Acc_y': [Acc_y], 'Acc_z': [Acc_z]}, ignore_index=True)
         
-        if samples >= 100: #change to 512 and test it later 
+        if samples == 100: #change to 512 and test it later 
             fall = fall.values.reshape((fall.shape[0], 1, fall.shape[1]))
             # split fall into chuncks, each chuck has 20 rows and predict and loop on all the chuncks
             #print size of dataframe
             print(fall.shape)
-            #fall = np.array_split(fall, fall.shape[0] / 2)
+            fall = np.array_split(fall, fall.shape[0] / 100)
             sense.clear(green)
             #input("Press Enter to start predicting...")
 
@@ -106,22 +106,5 @@ while True:
             sense.clear()
             samples = 0
             fall = pd.DataFrame(columns=['Device', 'Acc_x','Acc_y', 'Acc_z'])
-            
-            
-            
-        # write x, y, z, b, g, h to a file
-        """
-        file_name ="fall"
-        with open(file_name + ".csv", "a") as f:
-            # write x, y, z, g, h, i to the file. cant add barometer data right now
-            f.write("{0},{1},{2},{3},{4},{5}".format(Acc_x, Acc_y, Acc_z, Gyr_x, Gyr_y, Gyr_z))
-            # write a new line
-            f.write("\n")
-        if samples == 20:
-            file_counter +=1
-            samples = 0
-
-        time.sleep(0.1) #time interval 0.1 seconds 
-        """
         
         
