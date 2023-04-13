@@ -102,6 +102,9 @@ while True:
                     print("Fall detected") 
                     #display on text
                     sense.show_message("Fall detected", text_colour=red)
+                    #call Home Assistant API to send notification
+                    time.sleep(15) #15 seconds delay to allow the user to get up
+
                 else:
                     sense.clear(green)
             print("predict value", pred_value)
