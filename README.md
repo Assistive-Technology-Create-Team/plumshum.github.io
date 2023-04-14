@@ -12,7 +12,7 @@ Most updated branch is the **main** branch
 
 *For Connecting Raspberry Pi* 
 
-link to [instructions](https://projects.raspberrypi.org/en/projects/getting-started-with-the-sense-hat/8)
+link to [instructions](https://docs.google.com/document/d/1Ka-K6mvBm2KuGRN22vAVVAbZqOi51wT6gcAuoGuMG88/edit)
 1. ctrl p (microsoft)
 2. command shift p (linux)
 3. remote ssh either connect or add new host
