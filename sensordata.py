@@ -83,7 +83,7 @@ while True:
         
         fall = fall.append({'Device': 2, 'Acc_x': Acc_x, 'Acc_y': Acc_y, 'Acc_z': Acc_z}, ignore_index=True)
         
-        if samples == 100: #change to 512 and test it later 
+        if samples == 210: #change to 210 and test it later 
             fall = fall.values.reshape((fall.shape[0], fall.shape[1]))
             
             #print size of dataframe
@@ -107,9 +107,11 @@ while True:
                 else:
                     sense.clear(green)
             print("predict value", pred_value)
-            time.sleep(0.5)
-            sense.clear()
+            time.sleep(1)
+            #sense.clear()
             samples = 0
-            fall = pd.DataFrame(columns=['Device', 'Acc_x','Acc_y', 'Acc_z'])
+            fall = pd.DataFrame(columns=['Device',
+                            'Acc_x','Acc_y', 'Acc_z' 
+                            ])
         
         

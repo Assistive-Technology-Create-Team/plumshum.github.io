@@ -5,10 +5,11 @@ import tensorflow as tf
 fall = pd.DataFrame(columns=['Device',
                             'Acc_x','Acc_y', 'Acc_z' 
                             ])
-fall = fall.append({'Device': [2], 'Acc_x': [0.1], 'Acc_y': [0.2], 'Acc_z': [0.3]}, ignore_index=True)
-fall = fall.append({'Device': [2], 'Acc_x': [0.1], 'Acc_y': [0.2], 'Acc_z': [0.3]}, ignore_index=True)
-fall = fall.append({'Device': [2], 'Acc_x': [0.1], 'Acc_y': [0.2], 'Acc_z': [0.3]}, ignore_index=True)
-model = tf.keras.models.load_model('teacher_model4_device2_aggregate.h5')
+fall = fall.append({'Device': 2, 'Acc_x': 0.1, 'Acc_y': 0.2, 'Acc_z': 0.3}, ignore_index=True)
+fall = fall.append({'Device': 2, 'Acc_x': 0.1, 'Acc_y': 0.2, 'Acc_z': 0.3}, ignore_index=True)
+fall = fall.append({'Device': 2, 'Acc_x': 0.1, 'Acc_y': 0.2, 'Acc_z': 0.3}, ignore_index=True)
+#model = tf.keras.models.load_model('all models/teacher_model0_device2_aggregate.h5')
+model = tf.keras.models.load_model('all models/teacher_model0_device2_aggregate.h5', compile=False)
 
 #go through columns and print out the values
 for index, row in fall.iterrows():
@@ -20,7 +21,7 @@ fall = fall.values.reshape((fall.shape[0], fall.shape[1]))
 
 #print size of dataframe
 print(fall.shape)
-fall = np.array_split(fall, fall.shape[0] / 100)
+
 
 #input("Press Enter to start predicting...")
 
