@@ -26,7 +26,7 @@ Acc_Sen = 0.000244  # Accelerometer sensitivity 0.244 mg/LSB
 Gyr_Sen = 0.07      # Angular rate sensitivity 70 mdps/LSB
 Mag_Sen = 0.00014   # Magnetic sensitivity 0.14 mgauss/LSB
 
-model = tf.keras.models.load_model('teacher_model4_device2_aggregate')
+model = tf.keras.models.load_model('teacher_model4_device2_aggregate.h5')
 
 #create a pand dataframe and defin the columns
 fall = pd.DataFrame(columns=['Device',
@@ -81,11 +81,11 @@ while True:
         #create a dataframe with the data and index it
         
         
-        fall.append({'Device': [2], 'Acc_x': [Acc_x], 'Acc_y': [Acc_y], 'Acc_z': [Acc_z]}, ignore_index=True)
+        fall = fall.append({'Device': [2], 'Acc_x': [Acc_x], 'Acc_y': [Acc_y], 'Acc_z': [Acc_z]}, ignore_index=True)
         
         if samples == 100: #change to 512 and test it later 
             fall = fall.values.reshape((fall.shape[0], 1, fall.shape[1]))
-            # split fall into chuncks, each chuck has 20 rows and predict and loop on all the chuncks
+            
             #print size of dataframe
             print(fall.shape)
             fall = np.array_split(fall, fall.shape[0] / 100)
