@@ -81,10 +81,10 @@ while True:
         #create a dataframe with the data and index it
         
         
-        fall = fall.append({'Device': [2], 'Acc_x': [Acc_x], 'Acc_y': [Acc_y], 'Acc_z': [Acc_z]}, ignore_index=True)
+        fall = fall.append({'Device': 2, 'Acc_x': Acc_x, 'Acc_y': Acc_y, 'Acc_z': Acc_z}, ignore_index=True)
         
         if samples == 100: #change to 512 and test it later 
-            fall = fall.values.reshape((fall.shape[0], 1, fall.shape[1]))
+            fall = fall.values.reshape((fall.shape[0], fall.shape[1]))
             
             #print size of dataframe
             print(fall.shape)
@@ -103,8 +103,7 @@ while True:
                     #display on text
                     sense.show_message("Fall detected", text_colour=red)
                     #call Home Assistant API to send notification
-                    time.sleep(15) #15 seconds delay to allow the user to get up
-
+                    time.sleep(30) #30 seconds delay to allow the user to get up
                 else:
                     sense.clear(green)
             print("predict value", pred_value)
