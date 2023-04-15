@@ -26,7 +26,7 @@ Acc_Sen = 0.000244  # Accelerometer sensitivity 0.244 mg/LSB
 Gyr_Sen = 0.07      # Angular rate sensitivity 70 mdps/LSB
 Mag_Sen = 0.00014   # Magnetic sensitivity 0.14 mgauss/LSB
 
-model = tf.keras.models.load_model('teacher_model4_device2_aggregate.h5')
+#model = tf.keras.models.load_model('teacher_model4_device2_aggregate.h5')
 
 #create a pand dataframe and defin the columns
 fall = pd.DataFrame(columns=['Device',
@@ -53,7 +53,7 @@ while True:
             #upload panda dataframe to csv file, named after label_name
             fall.to_csv(label_name + '.csv', index=False)
             print("Data uploaded")
-            
+
     pressed = False
     if collecting == True:
         print("Collecting data")
