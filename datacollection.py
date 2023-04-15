@@ -2,7 +2,7 @@ from sense_hat import SenseHat
 import time
 import pandas as pd
 import numpy as np  
-import tensorflow as tf
+#import tensorflow as tf
 label_name = input ("Enter an action label: ")
 file_counter = 0
 samples = 0
@@ -49,6 +49,11 @@ while True:
         else:
             collecting = False
             print("Not collecting data")
+            print("Uploading data to csv file")
+            #upload panda dataframe to csv file, named after label_name
+            fall.to_csv(label_name + '.csv', index=False)
+            print("Data uploaded")
+            
     pressed = False
     if collecting == True:
         print("Collecting data")
@@ -83,35 +88,5 @@ while True:
         
         fall = fall.append({'Device': 2, 'Acc_x': Acc_x, 'Acc_y': Acc_y, 'Acc_z': Acc_z}, ignore_index=True)
         
-        if samples == 210: #change to 210 and test it later 
-            fall = fall.values.reshape((fall.shape[0], fall.shape[1]))
-            
-            #print size of dataframe
-            print(fall.shape)
-            fall = np.array_split(fall, fall.shape[0] / 100)
-            sense.clear(green)
-            #input("Press Enter to start predicting...")
-
-            # for each chunk, predict fall and if 50% of the predictions are 1, then the fall is
-            for i in range(len(fall)):
-                pred = model.predict(fall[i])
-                # if 50% of the predictions are 1, then the fall is predicted
-                pred_value = np.sum(pred) >= 0.5 * pred.shape[0]
-                if pred_value:
-                    sense.clear(red)
-                    print("Fall detected") 
-                    #display on text
-                    sense.show_message("Fall detected", text_colour=red)
-                    #call Home Assistant API to send notification
-                    time.sleep(30) #30 seconds delay to allow the user to get up
-                else:
-                    sense.clear(green)
-            print("predict value", pred_value)
-            time.sleep(1)
-            #psense.clear()
-            samples = 0
-            fall = pd.DataFrame(columns=['Device',
-                            'Acc_x','Acc_y', 'Acc_z' 
-                            ])
         
         
