@@ -1,3 +1,5 @@
+# Link to our official documentation for the [MIT 2023 CRE[AT]E CHALLENGE](https://docs.google.com/document/d/1hYDY0FAOtz6MbgkpVBOJH7VS61ltBj1N6swrxQ9e_64/edit?usp=sharing)
+
 # Navigating this Repository
 This is where we organize the code for our project. This is a README file in the repository. It informs you what this repository is all out.
 Repositories track the code and its history. Code can be managed and changed in different versions. To nagivate changes and different versions, Github uses a system of managing *branches* and utilizing *pulls and commits*
